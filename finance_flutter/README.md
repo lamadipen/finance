@@ -14,3 +14,16 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+##Run Project Locally
+###Mac
+Setup the machine as per the instruction [Click Here](https://flutter.dev/docs/get-started/install/macos) 
+
+Run the iOs Simulator
+
+``open -a Simulator``
+
+Run flutter app 
+
+``flutter run``
