@@ -1,112 +1,97 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Startup Name Generator',
-      theme: ThemeData(          // Add the 3 lines from here...
-        primaryColor: Colors.blueAccent,
-      ),
-      home: RandomWords(),
-    );
-  }
+void main() {
+  runApp(new MediaQuery(
+      data: new MediaQueryData(),
+      child: new MaterialApp(home: CupertinoTabBarDemo())
+  ));
 }
 
-class RandomWords extends StatefulWidget {
-  @override
-  _RandomWordsState createState() => _RandomWordsState();
+class _TabInfo {
+  const _TabInfo(this.title, this.icon);
+
+  final String title;
+  final IconData icon;
 }
 
-class _RandomWordsState extends State<RandomWords> {
-  final _suggestions = <WordPair>[];
-  final _saved = Set<WordPair>();
-  final _biggerFont = TextStyle(fontSize: 18.0);
+class CupertinoTabBarDemo extends StatelessWidget {
+  const CupertinoTabBarDemo();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Startup Name Generator'),
-        actions: [
-          IconButton(icon: Icon(Icons.list), onPressed: _pushSaved),
-        ],
-      ),
-      body: _buildSuggestions(),
-    );
-  }
+    List<_TabInfo> _tabInfo = buildTabInfo();
 
-  Widget _buildSuggestions() {
-    return ListView.builder(
-        padding: EdgeInsets.all(16.0),
-        itemBuilder: /*1*/ (context, i) {
-          if (i.isOdd) return Divider();
-          /*2*/
-
-          final index = i ~/ 2; /*3*/
-          if (index >= _suggestions.length) {
-            _suggestions.addAll(generateWordPairs().take(10)); /*4*/
-          }
-          return _buildRow(_suggestions[index]);
-        });
-  }
-
-  Widget _buildRow(WordPair pair) {
-    final alreadySaved = _saved.contains(pair);
-    return ListTile(
-      title: Text(
-        pair.asPascalCase,
-        style: _biggerFont,
-      ),
-      trailing: Icon(
-        // NEW from here...
-        alreadySaved ? Icons.favorite : Icons.favorite_border,
-        color: alreadySaved ? Colors.red : null,
-      ),
-      onTap: () {
-        // NEW lines from here...
-        setState(() {
-          if (alreadySaved) {
-            _saved.remove(pair);
-          } else {
-            _saved.add(pair);
-          }
-        });
-      },
-    );
-  }
-
-  void _pushSaved() {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        // NEW lines from here...
-        builder: (BuildContext context) {
-          final tiles = _saved.map(
-                (WordPair pair) {
-              return ListTile(
-                title: Text(
-                  pair.asPascalCase,
-                  style: _biggerFont,
-                ),
-              );
-            },
-          );
-          final divided = ListTile.divideTiles(
-            context: context,
-            tiles: tiles,
-          ).toList();
-
-          return Scaffold(
-            appBar: AppBar(
-              title: Text('Saved Suggestions'),
+    return DefaultTextStyle(
+      style: CupertinoTheme.of(context).textTheme.textStyle,
+      child: CupertinoTabScaffold(
+        restorationId: 'cupertino_tab_scaffold',
+        tabBar: CupertinoTabBar(
+          items: [
+            for (final tabInfo in _tabInfo)
+              BottomNavigationBarItem(
+                label: tabInfo.title,
+                icon: Icon(tabInfo.icon),
+              ),
+          ],
+        ),
+        tabBuilder: (context, index) {
+          return CupertinoTabView(
+            restorationScopeId: 'cupertino_tab_view_$index',
+            builder: (context) => _CupertinoDemoTab(
+              title: _tabInfo[index].title,
+              icon: _tabInfo[index].icon,
             ),
-            body: ListView(children: divided),
+            defaultTitle: _tabInfo[index].title,
           );
-        }, // ...to here.
+        },
+      ),
+    );
+  }
+
+  List<_TabInfo> buildTabInfo() {
+     final _tabInfo = [
+      _TabInfo(
+        "Dashboard",
+        CupertinoIcons.home,
+      ),
+      _TabInfo(
+        "Transactions",
+        CupertinoIcons.list_bullet,
+      ),
+      _TabInfo(
+        "Profit & Loss",
+        CupertinoIcons.book,
+      ),
+    ];
+    return _tabInfo;
+  }
+}
+
+class _CupertinoDemoTab extends StatelessWidget {
+  const _CupertinoDemoTab({
+    Key key,
+    @required this.title,
+    @required this.icon,
+  }) : super(key: key);
+
+  final String title;
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoPageScaffold(
+      navigationBar: const CupertinoNavigationBar(),
+      backgroundColor: CupertinoColors.systemBackground,
+      child: Center(
+        child: Icon(
+          icon,
+          semanticLabel: title,
+          size: 100,
+        ),
       ),
     );
   }
 }
+
+
