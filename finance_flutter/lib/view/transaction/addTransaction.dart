@@ -59,9 +59,8 @@ class AddTransactionState extends State<AddTransaction> {
               controller: dateController,
               textInputAction: TextInputAction.next,
               decoration: InputDecoration(
-                  filled: true,
                   icon: const Icon(Icons.calendar_today),
-                  hintText: "",
+                  border: const OutlineInputBorder(),
                   labelText: "Date"),
               onTap: () async {
                 // Below line stops keyboard from appearing
@@ -70,18 +69,26 @@ class AddTransactionState extends State<AddTransaction> {
               },
               onSaved: (value) {
                 transaction.date = DateTime.parse(value);
-                _phoneNumber.requestFocus();
+                _category.requestFocus();
               },
-              validator: _validateName,
             ),
             sizedBoxSpace,
             DropdownButtonFormField<String>(
-              value: dropdownValue,
+              focusNode: _category,
+              decoration: InputDecoration(
+                  icon: const Icon(Icons.category),
+                  border: const OutlineInputBorder(),
+                  labelText: 'Category'),
               onChanged: (String newValue) {
                 setState(() {
                   dropdownValue = newValue;
                 });
               },
+              onSaved: (value) {
+                transaction.category = null;
+                _description.requestFocus();
+              },
+              value: dropdownValue,
               items: <String>['One', 'Two', 'Free', 'Four']
                   .map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
@@ -92,38 +99,41 @@ class AddTransactionState extends State<AddTransaction> {
             ),
             sizedBoxSpace,
             TextFormField(
+              focusNode: _description,
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
+                icon: const Icon(Icons.text_snippet_outlined),
                 border: const OutlineInputBorder(),
                 labelText: "Description",
               ),
               maxLines: 1,
+              validator: _validateInputString,
+              onSaved: (value) {
+                transaction.description = value;
+                _amount.requestFocus();
+              },
             ),
             sizedBoxSpace,
             TextFormField(
+              focusNode: _amount,
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
+                icon: const Icon(Icons.money_off),
                 border: const OutlineInputBorder(),
                 labelText: "Amount",
-                suffixText: "Rs",
               ),
               maxLines: 1,
+              onSaved: (value) {
+                transaction.amount = double.parse(value);
+              },
             ),
             sizedBoxSpace,
-            Center(
-              child: ElevatedButton(
-                child: Text("Submit"),
-                onPressed: _handleSubmitted,
-              ),
+            ElevatedButton(
+              child: Text("Submit"),
+              onPressed: _handleSubmitted,
             ),
-            sizedBoxSpace,
-            Text(
-              "",
-              style: Theme.of(context).textTheme.caption,
-            ),
-            sizedBoxSpace,
           ],
         ),
       ),
@@ -158,16 +168,16 @@ class AddTransactionState extends State<AddTransaction> {
       _autoValidateMode =
           AutovalidateMode.always; // Start validating on every change.
       showInSnackBar(
-        "",
+        "Invalid Input",
       );
     } else {
       form.save();
-      showInSnackBar("");
+      showInSnackBar("Valid Input Form Saved");
     }
     print(transaction);
   }
 
-  String _validateName(String value) {
+  String _validateInputString(String value) {
     if (value.isEmpty) {
       return "";
     }

@@ -12,4 +12,9 @@ class Transaction {
 
   Transaction.allArgs(this.userId, this.transactionId, this.date, this.category,
       this.description, this.amount);
+
+  @override
+  String toString() {
+    return 'Transaction{userId: $userId, transactionId: $transactionId, date: $date, category: $category, description: $description, amount: $amount}';
+  }
 }
