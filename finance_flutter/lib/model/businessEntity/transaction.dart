@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:finance_flutter/model/businessEntity/category.dart';
 
-class Transaction {
+class Transaction  extends Equatable{
   int userId;
   int transactionId;
   DateTime date;
@@ -16,5 +17,10 @@ class Transaction {
   @override
   String toString() {
     return 'Transaction{userId: $userId, transactionId: $transactionId, date: $date, category: $category, description: $description, amount: $amount}';
+  }
+
+  @override
+  List<Object> get props {
+    return [transactionId];
   }
 }

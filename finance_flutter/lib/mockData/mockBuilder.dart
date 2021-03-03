@@ -2,8 +2,10 @@ import 'package:finance_flutter/model/businessEntity/category.dart';
 import 'package:finance_flutter/model/businessEntity/transaction.dart';
 
 class MockBuilder {
+  static List<Transaction> transactions;
+
   static List<Transaction> buildTransactions() {
-    List<Transaction> transactions = [];
+    transactions = [];
     Category expenses = new Category(1, "Travel", "expenses");
     Category revenue = new Category(2, "Sales", "revenue");
 
@@ -23,5 +25,9 @@ class MockBuilder {
     categories.add(revenue);
 
     return categories;
+  }
+
+  Future saveTransactions(List<Transaction> transactions) {
+      print(transactions);
   }
 }

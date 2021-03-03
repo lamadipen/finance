@@ -29,6 +29,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   draggable_floating_button: ^0.1.1
+  equatable: ^1.0.0
+  flutter_bloc: ^5.0.0
+  meta: ^1.1.6
 
 dev_dependencies:
   #reference for flutter gen https://pub.dev/packages/flutter_gen
