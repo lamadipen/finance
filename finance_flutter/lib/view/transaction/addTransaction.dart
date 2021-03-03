@@ -1,3 +1,5 @@
+import 'package:finance_flutter/mockData/mockBuilder.dart';
+import 'package:finance_flutter/model/businessEntity/category.dart';
 import 'package:finance_flutter/model/businessEntity/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +12,8 @@ class AddTransaction extends StatefulWidget {
 }
 
 class AddTransactionState extends State<AddTransaction> {
-  String dropdownValue = 'One';
+  List<Category> categories = MockBuilder.buildCategories();
+  Category selectedCategory = MockBuilder.buildCategories().first;
   DateTime selectedDate = DateTime.now();
   Transaction transaction = Transaction();
   TextEditingController dateController = TextEditingController();
@@ -73,27 +76,26 @@ class AddTransactionState extends State<AddTransaction> {
               },
             ),
             sizedBoxSpace,
-            DropdownButtonFormField<String>(
+            DropdownButtonFormField<Category>(
               focusNode: _category,
               decoration: InputDecoration(
                   icon: const Icon(Icons.category),
                   border: const OutlineInputBorder(),
                   labelText: 'Category'),
-              onChanged: (String newValue) {
+              onChanged: (Category newValue) {
                 setState(() {
-                  dropdownValue = newValue;
+                  selectedCategory = newValue;
                 });
               },
               onSaved: (value) {
-                transaction.category = null;
+                transaction.category = value;
                 _description.requestFocus();
               },
-              value: dropdownValue,
-              items: <String>['One', 'Two', 'Free', 'Four']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
+              items:
+                  categories.map<DropdownMenuItem<Category>>((Category value) {
+                return DropdownMenuItem<Category>(
                   value: value,
-                  child: Text(value),
+                  child: Text(value.name),
                 );
               }).toList(),
             ),
@@ -125,6 +127,7 @@ class AddTransactionState extends State<AddTransaction> {
                 labelText: "Amount",
               ),
               maxLines: 1,
+              validator: _validateInputAmount,
               onSaved: (value) {
                 transaction.amount = double.parse(value);
               },
@@ -168,22 +171,30 @@ class AddTransactionState extends State<AddTransaction> {
       _autoValidateMode =
           AutovalidateMode.always; // Start validating on every change.
       showInSnackBar(
-        "Invalid Input",
+        "Invalid Input, Please Enter Correct Value",
       );
     } else {
       form.save();
-      showInSnackBar("Valid Input Form Saved");
+      print(transaction);
+      //ToDO Call the API to save the data
+      showInSnackBar("Saving Please Wait...");
     }
-    print(transaction);
   }
 
   String _validateInputString(String value) {
     if (value.isEmpty) {
-      return "";
+      return "Please enter value in this filed.";
     }
-    final nameExp = RegExp(r'^[A-Za-z ]+$');
+    return null;
+  }
+
+  String _validateInputAmount(String value) {
+    if (value.isEmpty) {
+      return "Please enter value in this filed.";
+    }
+    final nameExp = RegExp(r'^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$');
     if (!nameExp.hasMatch(value)) {
-      return "";
+      return "Please enter valid number.";
     }
     return null;
   }

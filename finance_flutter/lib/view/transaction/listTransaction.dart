@@ -19,7 +19,7 @@ class _ListTransactionState extends State<ListTransaction> {
   Widget build(BuildContext context) {
     var appBar2 = AppBar(
       actions: [
-        IconButton(icon: Icon(Icons.list), onPressed: _pushSaved),
+        IconButton(icon: Icon(Icons.add), onPressed: _pushSaved),
       ],
     );
     return Scaffold(
@@ -92,36 +92,11 @@ class _ListTransactionState extends State<ListTransaction> {
       MaterialPageRoute<void>(builder: (BuildContext context) {
         return Scaffold(
           appBar: AppBar(
-            title: Text('Saved Suggestions'),
+            title: Text('Add New Transaction'),
           ),
           body: AddTransaction(),
         );
-      }
-          // NEW lines from here...
-          // builder: (BuildContext context) {
-          //   final tiles = _saved.map(
-          //     (Transaction transaction) {
-          //       return ListTile(
-          //         title: Text(
-          //           transaction.description,
-          //           style: _biggerFont,
-          //         ),
-          //       );
-          //     },
-          //   );
-          //   final divided = ListTile.divideTiles(
-          //     context: context,
-          //     tiles: tiles,
-          //   ).toList();
-          //
-          //   return Scaffold(
-          //     appBar: AppBar(
-          //       title: Text('Saved Suggestions'),
-          //     ),
-          //     body: ListView(children: divided),
-          //   );
-          // }, // ...to here.
-          ),
+      }),
     );
   }
 }
