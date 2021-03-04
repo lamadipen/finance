@@ -31,6 +31,8 @@ dependencies:
   draggable_floating_button: ^0.1.1
   flutter_bloc: ^6.0.0
   equatable: ^2.0.0
+  http: ^0.12.0
+  rxdart: ^0.23.1
 
 dev_dependencies:
   #reference for flutter gen https://pub.dev/packages/flutter_gen
