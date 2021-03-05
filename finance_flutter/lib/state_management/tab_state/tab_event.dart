@@ -8,7 +8,9 @@ abstract class TabEvent extends Equatable{
   List<Object> get props => [];
 }
 
-class TabInitilizedEvent extends TabEvent{}
+class TabPreInitializeEvent extends TabEvent{}
+
+class TabInitializedEvent extends TabEvent{}
 
 class TabUpdatedEvent extends TabEvent{
   final TabState tabState;
@@ -20,7 +22,7 @@ class TabUpdatedEvent extends TabEvent{
 
   @override
   String toString() {
-    return 'TabUpdated{tabState: $tabState}';
+    return 'TabUpdatedEvent{tabState: $tabState}';
   }
 }
 

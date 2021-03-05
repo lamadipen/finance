@@ -1,5 +1,5 @@
-import 'package:finance_flutter/utils/state_management/finance_bloc_observer.dart';
-import 'package:finance_flutter/utils/state_management/transaction_state/transaction_bloc.dart';
+import 'package:finance_flutter/state_management/finance_bloc_observer.dart';
+import 'package:finance_flutter/state_management/tab_state/tab_bloc.dart';
 import 'package:finance_flutter/view/home/welcomePage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,7 @@ void main() async {
   runApp(
     BlocProvider(
         create: (context) {
-          return TransactionBloc()..add(TransactionsLoadedEvent());
+          return TabBloc()..add(TabPreInitializeEvent());
         },
         child: MediaQuery(
             data: MediaQueryData(),
