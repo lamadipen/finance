@@ -34,3 +34,8 @@ https://www.mockable.io/a/#/space/demo4480883/rest/new?inwizzard=true
 https://www.mockapi.io/
 https://beeceptor.com/console/transactions
 https://designer.mocky.io/design
+
+##State Management Library
+https://pub.dev/packages/provider/example
+
+https://pub.dev/packages/flutter_bloc

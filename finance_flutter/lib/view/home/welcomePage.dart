@@ -11,11 +11,7 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TabBloc, TabState>(builder: (context, state) {
-      if (state is TabPreInitializeEvent) {
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      } else if(state is TabInitialState){
+      if (state is TabInitialState) {
         List<TabInfo> _tabInfo = state.tabInfo;
         return DefaultTextStyle(
           style: CupertinoTheme.of(context).textTheme.textStyle,
@@ -44,8 +40,10 @@ class WelcomePage extends StatelessWidget {
             },
           ),
         );
-      }else{
-        return Text('Hey');
+      } else {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
       }
     });
   }
@@ -83,24 +81,6 @@ class WelcomePage extends StatelessWidget {
           bodyWidget: Center(child: Text("Welcome to profit loss"))),
       defaultTitle: _tabInfo[index].title,
     );
-  }
-
-  List<TabInfo> buildTabInfo() {
-    final _tabInfo = [
-      TabInfo(
-        "Dashboard",
-        CupertinoIcons.home,
-      ),
-      TabInfo(
-        "Transactions",
-        CupertinoIcons.list_bullet,
-      ),
-      TabInfo(
-        "Profit & Loss",
-        CupertinoIcons.book,
-      ),
-    ];
-    return _tabInfo;
   }
 }
 

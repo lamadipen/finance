@@ -1,5 +1,6 @@
 import 'package:finance_flutter/state_management/finance_bloc_observer.dart';
 import 'package:finance_flutter/state_management/tab_state/tab_bloc.dart';
+import 'package:finance_flutter/state_management/transaction_state/transaction_bloc.dart';
 import 'package:finance_flutter/view/home/welcomePage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,22 +13,26 @@ void main() async {
         create: (context) {
           return TabBloc()..add(TabPreInitializeEvent());
         },
-        child: MediaQuery(
-            data: MediaQueryData(),
-            child: FinanceApp())
-    ),
+        child: MediaQuery(data: MediaQueryData(), child: FinanceApp())),
   );
 }
 
 class FinanceApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
         theme: ThemeData(
           // Add the 3 lines from here...
           primaryColor: Colors.blueAccent,
         ),
-        home: WelcomePage()
-    );
+        home: MultiBlocProvider(
+          providers: [
+            BlocProvider<TransactionBloc>(
+              create: (BuildContext context) =>
+                  TransactionBloc()..add(TransactionsLoadedEvent()),
+            ),
+          ],
+          child: WelcomePage(),
+        ));
   }
 }
