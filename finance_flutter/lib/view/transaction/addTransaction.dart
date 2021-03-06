@@ -178,6 +178,7 @@ class AddTransactionState extends State<AddTransaction> {
       print(transaction);
       //ToDO Call the API to save the data
       showInSnackBar("Saving Please Wait...");
+      Navigator.of(context).pop();
     }
   }
 

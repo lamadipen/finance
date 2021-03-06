@@ -10,8 +10,19 @@ class Transaction {
 
   Transaction();
 
-  Transaction.allArgs(this.userId, this.transactionId, this.date, this.category,
-      this.description, this.amount);
+  Transaction.allArgs({this.userId, this.transactionId, this.date, this.category,
+      this.description, this.amount});
+
+  factory Transaction.fromJson(Map<String, dynamic> json) {
+    return Transaction.allArgs(
+      userId: json['userId'],
+      transactionId: json['transactionId'],
+      date: DateTime.parse(json['date']),
+      category: Category.fromJson(json['category']),
+      description: json['description'],
+      amount: json['amount']
+    );
+  }
 
   @override
   String toString() {

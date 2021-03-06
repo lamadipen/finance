@@ -1,42 +1,51 @@
+import 'package:finance_flutter/state_management/tab_state/tab_bloc.dart';
 import 'package:finance_flutter/view/transaction/listTransaction.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:finance_flutter/model/viewEntity/tabInfo.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage();
 
   @override
   Widget build(BuildContext context) {
-    List<TabInfo> _tabInfo = buildTabInfo();
-
-    return DefaultTextStyle(
-      style: CupertinoTheme.of(context).textTheme.textStyle,
-      child: CupertinoTabScaffold(
-        restorationId: 'cupertino_tab_scaffold',
-        tabBar: CupertinoTabBar(
-          items: [
-            for (final tabInfo in _tabInfo)
-              BottomNavigationBarItem(
-                label: tabInfo.title,
-                icon: Icon(tabInfo.icon),
-              ),
-          ],
-        ),
-        tabBuilder: (context, index) {
-          switch (index) {
-            case 0:
-              return buildDashboardTab(index, _tabInfo);
-              break;
-            case 1:
-              return buildTransactionTab(index, _tabInfo);
-              break;
-            default:
-              return buildProfitLossTab(index, _tabInfo);
-          }
-        },
-      ),
-    );
+    return BlocBuilder<TabBloc, TabState>(builder: (context, state) {
+      if (state is TabInitialState) {
+        List<TabInfo> _tabInfo = state.tabInfo;
+        return DefaultTextStyle(
+          style: CupertinoTheme.of(context).textTheme.textStyle,
+          child: CupertinoTabScaffold(
+            restorationId: 'cupertino_tab_scaffold',
+            tabBar: CupertinoTabBar(
+              items: [
+                for (final tabInfo in _tabInfo)
+                  BottomNavigationBarItem(
+                    label: tabInfo.title,
+                    icon: Icon(tabInfo.icon),
+                  ),
+              ],
+            ),
+            tabBuilder: (context, index) {
+              switch (index) {
+                case 0:
+                  return buildDashboardTab(index, _tabInfo);
+                  break;
+                case 1:
+                  return buildTransactionTab(index, _tabInfo);
+                  break;
+                default:
+                  return buildProfitLossTab(index, _tabInfo);
+              }
+            },
+          ),
+        );
+      } else {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      }
+    });
   }
 
   CupertinoTabView buildTransactionTab(int index, List<TabInfo> _tabInfo) {
@@ -72,24 +81,6 @@ class WelcomePage extends StatelessWidget {
           bodyWidget: Center(child: Text("Welcome to profit loss"))),
       defaultTitle: _tabInfo[index].title,
     );
-  }
-
-  List<TabInfo> buildTabInfo() {
-    final _tabInfo = [
-      TabInfo(
-        "Dashboard",
-        CupertinoIcons.home,
-      ),
-      TabInfo(
-        "Transactions",
-        CupertinoIcons.list_bullet,
-      ),
-      TabInfo(
-        "Profit & Loss",
-        CupertinoIcons.book,
-      ),
-    ];
-    return _tabInfo;
   }
 }
 

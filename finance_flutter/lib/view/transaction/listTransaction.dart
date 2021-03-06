@@ -1,7 +1,9 @@
 import 'package:finance_flutter/mockData/mockBuilder.dart';
 import 'package:finance_flutter/model/businessEntity/transaction.dart';
+import 'package:finance_flutter/state_management/transaction_state/transaction_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:draggable_floating_button/draggable_floating_button.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'addTransaction.dart';
 
@@ -22,25 +24,39 @@ class _ListTransactionState extends State<ListTransaction> {
         IconButton(icon: Icon(Icons.add), onPressed: _pushSaved),
       ],
     );
-    return Scaffold(
-      appBar: appBar2,
-      body: _buildSuggestions(),
-      floatingActionButton: Stack(children: <Widget>[
-        DraggableFloatingActionButton(
-            tooltip: 'Add Transactions',
-            offset: new Offset(
-                MediaQuery.of(context).size.width -
-                    (MediaQuery.of(context).size.width * 0.2),
-                MediaQuery.of(context).size.height -
-                    (MediaQuery.of(context).size.height * 0.2)),
-            child: new Icon(
-              Icons.add,
-            ),
-            onPressed: () => _pushSaved(),
-            appContext: context,
-            appBar: appBar2),
-      ]),
-    );
+    return BlocBuilder<TransactionBloc, TransactionState>(
+        builder: (context, state) {
+          print(state);
+      if (state is TransactionLoadInProgressState) {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      }
+      if (state is TransactionLoadFailureState) {
+        return Center(
+          child: Text('failed to fetch posts'),
+        );
+      }
+      return Scaffold(
+        appBar: appBar2,
+        body: _buildSuggestions(),
+        floatingActionButton: Stack(children: <Widget>[
+          DraggableFloatingActionButton(
+              tooltip: 'Add Transactions',
+              offset: new Offset(
+                  MediaQuery.of(context).size.width -
+                      (MediaQuery.of(context).size.width * 0.2),
+                  MediaQuery.of(context).size.height -
+                      (MediaQuery.of(context).size.height * 0.2)),
+              child: new Icon(
+                Icons.add,
+              ),
+              onPressed: () => _pushSaved(),
+              appContext: context,
+              appBar: appBar2),
+        ]),
+      );
+    });
   }
 
   Widget _buildSuggestions() {
