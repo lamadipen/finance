@@ -4,24 +4,19 @@ import 'package:finance_flutter/service/transaction_service.dart';
 
 class MockBuilder {
   static List<Transaction> buildTransactions() {
-    var transactionService = TransactionService();
-
+    Category expenses = new Category(id:1,name: "Travel",categoryType: "expenses");
+    Category revenue = new Category(id:2, name: "Sales", categoryType: "revenue");
     List<Transaction> transactions = [];
-    var fetchPosts =  transactionService.fetchPosts(0, 10);
-    transactionService.fetchPosts(0, 10).then((value) {
-      if (value != null) value.forEach((item) => transactions.add(item));
-    });
-    return transactions == null ? [] : transactions;
-
-    // Category expenses = new Category(1, "Travel", "expenses");
-    // Category revenue = new Category(2, "Sales", "revenue");
-    //
-    // transactions.add(Transaction.allArgs(200,1,DateTime.now(), expenses, "Purchased Some goods", 1000.0));
-    // transactions.add(Transaction.allArgs(300,1,DateTime.now(), revenue, "Sold Some goods", 1000.0));
-    // transactions.add(Transaction.allArgs(500,1,DateTime.now(), expenses, "Travle ", 1000.0));
-    // transactions.add(Transaction.allArgs(1000,1,DateTime.now(), revenue, "Sold Property", 1000.0));
-    // transactions.add(Transaction.allArgs(3000,1,DateTime.now(), expenses, "Purchased Car", 1000.0));
-    // return transactions;
+    transactions.add(Transaction.allArgs(userId:200,transactionId:2,date:DateTime.now(), category:expenses,description: "Purchased Some goods", amount:1000.0));
+    transactions.add(Transaction.allArgs(userId:300,transactionId:1,date:DateTime.now(), category:revenue, description:"Sold Some goods", amount:1000.0));
+    transactions.add(Transaction.allArgs(userId:500,transactionId:3,date:DateTime.now(), category:expenses,description: "Travle ", amount:1000.0));
+    transactions.add(Transaction.allArgs(userId:1000,transactionId:4,date:DateTime.now(), category:revenue, description:"Sold Property", amount:1000.0));
+    transactions.add(Transaction.allArgs(userId:3000,transactionId:5,date:DateTime.now(), category:expenses,description: "Purchased Car", amount:1000.0));
+    transactions.add(Transaction.allArgs(userId:3600,transactionId:6,date:DateTime.now(), category:expenses,description: "Purchased Car", amount:1000.0));
+    transactions.add(Transaction.allArgs(userId:3200,transactionId:7,date:DateTime.now(), category:expenses,description: "Purchased Car", amount:1000.0));
+    transactions.add(Transaction.allArgs(userId:100,transactionId:8,date:DateTime.now(), category:expenses,description: "Purchased Car", amount:1000.0));
+    transactions.add(Transaction.allArgs(userId:349,transactionId:9,date:DateTime.now(), category:expenses,description: "Purchased Car", amount:1000.0));
+    return transactions;
   }
 
   static List<Category> buildCategories() {

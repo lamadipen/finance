@@ -13,7 +13,7 @@ class ListTransaction extends StatefulWidget {
 }
 
 class _ListTransactionState extends State<ListTransaction> {
-  final _transactions = MockBuilder.buildTransactions();
+  // final _transactions = MockBuilder.buildTransactions();
   final _saved = Set<Transaction>();
   final _biggerFont = TextStyle(fontSize: 18.0);
 
@@ -26,7 +26,6 @@ class _ListTransactionState extends State<ListTransaction> {
     );
     return BlocBuilder<TransactionBloc, TransactionState>(
         builder: (context, state) {
-          print(state);
       if (state is TransactionLoadInProgressState) {
         return Center(
           child: CircularProgressIndicator(),
@@ -37,9 +36,10 @@ class _ListTransactionState extends State<ListTransaction> {
           child: Text('failed to fetch posts'),
         );
       }
+      final _transactions = state is TransactionsLoadSuccessState ? state.transactions: [];
       return Scaffold(
         appBar: appBar2,
-        body: _buildSuggestions(),
+        body: _buildSuggestions(_transactions),
         floatingActionButton: Stack(children: <Widget>[
           DraggableFloatingActionButton(
               tooltip: 'Add Transactions',
@@ -59,13 +59,13 @@ class _ListTransactionState extends State<ListTransaction> {
     });
   }
 
-  Widget _buildSuggestions() {
+  Widget _buildSuggestions(transactions) {
     return ListView.builder(
-        itemCount: _transactions.length,
+        itemCount: transactions.length,
         padding: EdgeInsets.all(16.0),
         itemBuilder: /*1*/ (context, i) {
-          if (i.isOdd) return Divider();
-          return _buildRow(_transactions[i]);
+          //if (i.isOdd) return Divider();
+          return _buildRow(transactions[i]);
         });
   }
 
