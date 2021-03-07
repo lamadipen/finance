@@ -1,8 +1,10 @@
 import 'package:finance_flutter/mockData/mockBuilder.dart';
 import 'package:finance_flutter/model/businessEntity/category.dart';
 import 'package:finance_flutter/model/businessEntity/transaction.dart';
+import 'package:finance_flutter/state_management/transaction_state/transaction_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddTransaction extends StatefulWidget {
   const AddTransaction({Key key}) : super(key: key);
@@ -175,7 +177,11 @@ class AddTransactionState extends State<AddTransaction> {
       );
     } else {
       form.save();
-      print(transaction);
+      transaction.userId = 2344;
+      transaction.transactionId = 98765;
+      BlocProvider.of<TransactionBloc>(context)
+          .add(TransactionAddedEvent(transaction));
+      print("Save Button clicked $transaction");
       //ToDO Call the API to save the data
       showInSnackBar("Saving Please Wait...");
       Navigator.of(context).pop();
