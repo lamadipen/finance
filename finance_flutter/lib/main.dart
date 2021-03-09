@@ -23,6 +23,7 @@ class FinanceApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: "Hey",
         locale: Locale("ne", "np"),
         theme: ThemeData(
           // Add the 3 lines from here...
