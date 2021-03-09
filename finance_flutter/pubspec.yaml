@@ -32,7 +32,9 @@ dependencies:
   flutter_bloc: ^6.0.0
   equatable: ^2.0.0
   http: ^0.12.0
-
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.17.0
 dev_dependencies:
   #reference for flutter gen https://pub.dev/packages/flutter_gen
   flutter_test:
@@ -43,7 +45,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -78,3 +79,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+  generate: true

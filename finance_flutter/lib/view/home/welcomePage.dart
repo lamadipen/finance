@@ -4,13 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:finance_flutter/model/viewEntity/tabInfo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class WelcomePage extends StatelessWidget {
   const WelcomePage();
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TabBloc, TabState>(builder: (context, state) {
+      print(AppLocalizations.of(context).helloWorld);
       if (state is TabInitialState) {
         List<TabInfo> _tabInfo = state.tabInfo;
         return DefaultTextStyle(
