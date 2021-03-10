@@ -1,8 +1,9 @@
+import 'package:finance_flutter/model/viewEntity/tabInfo.dart';
 import 'package:finance_flutter/state_management/tab_state/tab_bloc.dart';
+import 'package:finance_flutter/view/home/pie_char_page.dart';
 import 'package:finance_flutter/view/transaction/listTransaction.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:finance_flutter/model/viewEntity/tabInfo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class WelcomePage extends StatelessWidget {
@@ -63,12 +64,13 @@ class WelcomePage extends StatelessWidget {
   CupertinoTabView buildDashboardTab(int index, List<TabInfo> _tabInfo) {
     return CupertinoTabView(
       restorationScopeId: 'cupertino_tab_view_$index',
-      builder: (context) => _CupertinoBaseTab(
+      builder: (context) {
+        var dashBoardContainer = PieCharPage();
+        return _CupertinoBaseTab(
           title: _tabInfo[index].title,
           icon: _tabInfo[index].icon,
-          bodyWidget: Center(
-            child: Text("Welcome to dashboard"),
-          )),
+          bodyWidget: dashBoardContainer);
+      },
       defaultTitle: _tabInfo[index].title,
     );
   }
