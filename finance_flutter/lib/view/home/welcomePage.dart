@@ -1,11 +1,15 @@
 import 'package:finance_flutter/model/viewEntity/tabInfo.dart';
 import 'package:finance_flutter/state_management/tab_state/tab_bloc.dart';
+import 'package:finance_flutter/view/home/datum_legend_with_measures.dart';
 import 'package:finance_flutter/view/home/pie_char_page.dart';
+import 'package:finance_flutter/view/home/points_line_chart.dart';
+import 'package:finance_flutter/view/home/simple_series_legend.dart';
 import 'package:finance_flutter/view/transaction/listTransaction.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class WelcomePage extends StatelessWidget {
   const WelcomePage();
 
@@ -31,7 +35,8 @@ class WelcomePage extends StatelessWidget {
             tabBuilder: (context, index) {
               switch (index) {
                 case 0:
-                  return buildDashboardTab(index, _tabInfo);
+                  // return buildDashboardTab(index, _tabInfo);
+                  return buildDashboardTabPoc(index, _tabInfo);
                   break;
                 case 1:
                   return buildTransactionTab(index, _tabInfo);
@@ -67,9 +72,87 @@ class WelcomePage extends StatelessWidget {
       builder: (context) {
         var dashBoardContainer = PieCharPage();
         return _CupertinoBaseTab(
-          title: _tabInfo[index].title,
-          icon: _tabInfo[index].icon,
-          bodyWidget: dashBoardContainer);
+            title: _tabInfo[index].title,
+            icon: _tabInfo[index].icon,
+            bodyWidget: dashBoardContainer);
+      },
+      defaultTitle: _tabInfo[index].title,
+    );
+  }
+
+  CupertinoTabView buildDashboardTabPoc(int index, List<TabInfo> _tabInfo) {
+    return CupertinoTabView(
+      restorationScopeId: 'cupertino_tab_view_$index',
+      builder: (context) {
+        var dashboardSummaryRow = Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Text(
+                    'Sales YTD',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Text(
+                    '20000',
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Text(
+                    'Total Profit (Loss) YTD',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Text(
+                    '100000',
+                  ),
+                ),
+              ],
+            )
+          ],
+        );
+
+        var dashBoardContainer = Container(
+          padding: EdgeInsets.all(20),
+          margin: EdgeInsets.all(20),
+          child: ListView(
+            children: [
+              Container(child: Expanded(child: dashboardSummaryRow)),
+              Container(
+                  child: SizedBox(
+                      width: 200.0,
+                      height: 300.0,
+                      child: PointsLineChart.withSampleData())),
+              Container(
+                  child: SizedBox(
+                      width: 200.0,
+                      height: 300.0,
+                      child: SimpleSeriesLegend.withSampleData())),
+              Container(
+                  child: SizedBox(
+                      width: 200.0,
+                      height: 300.0,
+                      child: DatumLegendWithMeasures.withSampleData())),
+            ],
+          ),
+        );
+        return _CupertinoBaseTab(
+            title: _tabInfo[index].title,
+            icon: _tabInfo[index].icon,
+            bodyWidget: dashBoardContainer);
       },
       defaultTitle: _tabInfo[index].title,
     );
