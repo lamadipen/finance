@@ -131,21 +131,30 @@ class WelcomePage extends StatelessWidget {
           child: ListView(
             children: [
               Container(child: Expanded(child: dashboardSummaryRow)),
-              Container(
-                  child: SizedBox(
-                      width: 200.0,
-                      height: 300.0,
-                      child: PointsLineChart.withSampleData())),
-              Container(
-                  child: SizedBox(
-                      width: 200.0,
-                      height: 300.0,
-                      child: SimpleSeriesLegend.withSampleData())),
-              Container(
-                  child: SizedBox(
-                      width: 200.0,
-                      height: 300.0,
-                      child: DatumLegendWithMeasures.withSampleData())),
+              const Divider(
+                height: 20,
+                thickness: 5,
+                indent: 20,
+                endIndent: 20,
+              ),
+              Container(height: 20),
+              Container(child: PointsLineChart()),
+              const Divider(
+                height: 20,
+                thickness: 5,
+                indent: 20,
+                endIndent: 20,
+              ),
+              Container(height: 20),
+              Container(child: SimpleSeriesLegend()),
+              const Divider(
+                height: 20,
+                thickness: 5,
+                indent: 20,
+                endIndent: 20,
+              ),
+              Container(height: 20),
+              Container(child: DatumLegendWithMeasures()),
             ],
           ),
         );
