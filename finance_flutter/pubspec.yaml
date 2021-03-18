@@ -31,18 +31,26 @@ dependencies:
   draggable_floating_button: ^0.1.1
   flutter_bloc: ^6.0.0
   equatable: ^2.0.0
-  http: ^0.12.0
+  http: ^0.13.0
   flutter_localizations:
     sdk: flutter
   intl: ^0.17.0
   pie_chart: ^5.0.0
   charts_flutter: ^0.10.0
+  firebase_core: "^1.0.1"
+  firebase_auth: "^1.0.1"
+  flutter_facebook_auth: ^3.0.0+1
+  google_sign_in: "^4.5.1"
+  pedantic: ^1.9.0
+  formz: ^0.3.2
+  google_fonts: ^2.0.0
+  font_awesome_flutter: ^8.4.0
 
 dev_dependencies:
   #reference for flutter gen https://pub.dev/packages/flutter_gen
   flutter_test:
     sdk: flutter
-
+  mockito: ^4.0.0
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
