@@ -28,16 +28,17 @@ class AuthenticationBloc
   Stream<AuthenticationState> mapEventToState(
     AuthenticationEvent event,
   ) async* {
-    if(event is AuthenticationUserChangedEvent) {
+    if (event is AuthenticationUserChangedEvent) {
       yield _mapAuthenticationUserChangedToState(event);
-    }else if(event is AuthenticationLogoutRequestedEvent) {
+    } else if (event is AuthenticationLogoutRequestedEvent) {
       unawaited(_authenticationService.logOut());
     }
   }
 
-  AuthenticationState _mapAuthenticationUserChangedToState(AuthenticationUserChangedEvent event) {
-      return event.user != FlutterFinanceUser.empty ?
-          AuthenticationState.authenticated(event.user):
-          const AuthenticationState.unauthenticated();
+  AuthenticationState _mapAuthenticationUserChangedToState(
+      AuthenticationUserChangedEvent event) {
+    return event.user != FlutterFinanceUser.empty
+        ? AuthenticationState.authenticated(event.user)
+        : const AuthenticationState.unauthenticated();
   }
 }

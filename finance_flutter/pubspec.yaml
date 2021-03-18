@@ -42,6 +42,9 @@ dependencies:
   flutter_facebook_auth: ^3.0.0+1
   google_sign_in: "^4.5.1"
   pedantic: ^1.9.0
+  formz: ^0.3.2
+  google_fonts: ^2.0.0
+  font_awesome_flutter: ^8.4.0
 
 dev_dependencies:
   #reference for flutter gen https://pub.dev/packages/flutter_gen
