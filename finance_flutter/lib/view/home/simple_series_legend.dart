@@ -1,5 +1,5 @@
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:finance_flutter/model/businessEntity/categoryType.dart';
+import 'package:finance_flutter/model/businessEntity/category.dart';
 import 'package:finance_flutter/model/businessEntity/transaction.dart';
 import 'package:finance_flutter/state_management/transaction_state/transaction_bloc.dart';
 import 'package:flutter/material.dart';
@@ -66,19 +66,19 @@ class SimpleSeriesLegend extends StatelessWidget {
       transactions) {
     List<OrdinalSales> revenue = List<OrdinalSales>.from(transactions
         .where((Transaction t) =>
-            t.category.categoryType == CategoryType.REVENUE.name)
+            t.category == Category.REVENUE.name)
         .map((Transaction t) =>
             OrdinalSales(t.date.year.toString(), t.amount.toInt())));
 
     List<OrdinalSales> expenses = List<OrdinalSales>.from(transactions
         .where((Transaction t) =>
-            t.category.categoryType == CategoryType.EXPENSES.name)
+            t.category == Category.EXPENSES.name)
         .map((Transaction t) =>
             OrdinalSales(t.date.year.toString(), t.amount.toInt())));
 
     final costOfGoodsSold = List<OrdinalSales>.from(transactions
         .where((Transaction t) =>
-            t.category.categoryType == CategoryType.COST_OF_GOODS_SOLD.name)
+            t.category == Category.COST_OF_GOODS_SOLD.name)
         .map((Transaction t) =>
             OrdinalSales(t.date.year.toString(), t.amount.toInt())));
     // final desktopSalesData = [

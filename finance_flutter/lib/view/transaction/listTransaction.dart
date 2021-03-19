@@ -1,8 +1,8 @@
-import 'package:finance_flutter/mockData/mockBuilder.dart';
+import 'package:draggable_floating_button/draggable_floating_button.dart';
+import 'package:finance_flutter/model/businessEntity/category.dart';
 import 'package:finance_flutter/model/businessEntity/transaction.dart';
 import 'package:finance_flutter/state_management/transaction_state/transaction_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:draggable_floating_button/draggable_floating_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'addTransaction.dart';
@@ -13,7 +13,6 @@ class ListTransaction extends StatefulWidget {
 }
 
 class _ListTransactionState extends State<ListTransaction> {
-  // final _transactions = MockBuilder.buildTransactions();
   final _saved = Set<Transaction>();
   final _biggerFont = TextStyle(fontSize: 18.0);
 
@@ -36,7 +35,8 @@ class _ListTransactionState extends State<ListTransaction> {
           child: Text('failed to fetch posts'),
         );
       }
-      final _transactions = state is TransactionsLoadSuccessState ? state.transactions: [];
+      final _transactions =
+          state is TransactionsLoadSuccessState ? state.transactions : [];
       return Scaffold(
         appBar: appBar2,
         body: _buildSuggestions(_transactions),
@@ -81,7 +81,6 @@ class _ListTransactionState extends State<ListTransaction> {
         children: [
           Text("Date : " + transaction.date.toString()),
           Text("Category : " + transaction.category.name),
-          Text("Type : " + transaction.category.categoryType),
           Text("Amount : " + transaction.amount.toString())
         ],
       ),

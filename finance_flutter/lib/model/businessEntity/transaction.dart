@@ -1,8 +1,8 @@
 import 'package:finance_flutter/model/businessEntity/category.dart';
 
 class Transaction {
-  int userId;
-  int transactionId;
+  String companyId;
+  String transactionId;
   DateTime date;
   Category category;
   String description;
@@ -10,15 +10,15 @@ class Transaction {
 
   Transaction();
 
-  Transaction.allArgs({this.userId, this.transactionId, this.date, this.category,
+  Transaction.allArgs({this.companyId, this.transactionId, this.date, this.category,
       this.description, this.amount});
 
   factory Transaction.fromJson(Map<String, dynamic> json) {
     return Transaction.allArgs(
-      userId: json['userId'],
+      companyId: json['userId'],
       transactionId: json['transactionId'],
       date: DateTime.parse(json['date']),
-      category: Category.fromJson(json['category']),
+      category: json['category'],
       description: json['description'],
       amount: json['amount']
     );
@@ -26,6 +26,6 @@ class Transaction {
 
   @override
   String toString() {
-    return 'Transaction{userId: $userId, transactionId: $transactionId, date: $date, category: $category, description: $description, amount: $amount}';
+    return 'Transaction{userId: $companyId, transactionId: $transactionId, date: $date, category: $category, description: $description, amount: $amount}';
   }
 }
