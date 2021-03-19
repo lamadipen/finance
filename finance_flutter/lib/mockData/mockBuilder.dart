@@ -4,9 +4,9 @@ import 'package:finance_flutter/model/businessEntity/transaction.dart';
 class MockBuilder {
   static List<Transaction> buildTransactions() {
     Category expenses =
-        new Category(id: 1, name: "Travel", categoryType: "expenses");
+        Category.EXPENSES;
     Category revenue =
-        new Category(id: 2, name: "Sales", categoryType: "revenue");
+        Category.REVENUE;
     List<Transaction> transactions = [];
     transactions.add(Transaction.allArgs(
         userId: 200,
@@ -77,9 +77,9 @@ class MockBuilder {
   static List<Category> buildCategories() {
     List<Category> categories = [];
     Category expenses =
-        new Category(id: 1, name: "Travel", categoryType: "expenses");
+        Category.EXPENSES;
     Category revenue =
-        new Category(id: 2, name: "Sales", categoryType: "revenue");
+        Category.REVENUE;
     categories.add(expenses);
     categories.add(revenue);
 

@@ -18,7 +18,7 @@ class Transaction {
       userId: json['userId'],
       transactionId: json['transactionId'],
       date: DateTime.parse(json['date']),
-      category: Category.fromJson(json['category']),
+      category: json['category'],
       description: json['description'],
       amount: json['amount']
     );
