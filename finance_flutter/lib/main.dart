@@ -16,13 +16,6 @@ void main() async {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
   Bloc.observer = FinanceBlocObserver();
 
-  // runApp(
-  //   BlocProvider(
-  //       create: (context) {
-  //         return TabBloc()..add(TabPreInitializeEvent());
-  //       },
-  //       child: MediaQuery(data: MediaQueryData(), child: FinanceApp())),
-  // );
   runApp(MediaQuery(
       data: MediaQueryData(),
       child: FinanceApp(

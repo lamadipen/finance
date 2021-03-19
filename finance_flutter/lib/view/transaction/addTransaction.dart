@@ -177,8 +177,8 @@ class AddTransactionState extends State<AddTransaction> {
       );
     } else {
       form.save();
-      transaction.userId = 2344;
-      transaction.transactionId = 98765;
+      transaction.companyId = "2344";
+      transaction.transactionId = "98765";
       BlocProvider.of<TransactionBloc>(context)
           .add(TransactionAddedEvent(transaction));
       print("Save Button clicked $transaction");

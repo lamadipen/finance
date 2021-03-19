@@ -1,8 +1,4 @@
-enum Category {
-  EXPENSES,
-  REVENUE,
-  COST_OF_GOODS_SOLD
-}
+enum Category { EXPENSES, REVENUE, COST_OF_GOODS_SOLD }
 
 extension CategoryExtension on Category {
   String get name {

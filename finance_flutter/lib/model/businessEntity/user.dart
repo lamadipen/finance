@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:finance_flutter/model/businessEntity/role.dart';
 import 'package:meta/meta.dart';
 
 class FlutterFinanceUser extends Equatable {
@@ -6,12 +7,14 @@ class FlutterFinanceUser extends Equatable {
   final String id;
   final String name;
   final String photo;
+  final Role role;
 
   const FlutterFinanceUser({
     @required this.email,
     @required this.id,
     @required this.name,
     @required this.photo,
+    @required this.role
   }):assert(email != null), assert(id != null);
 
   @override
