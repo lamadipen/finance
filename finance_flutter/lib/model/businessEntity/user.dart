@@ -8,13 +8,15 @@ class FlutterFinanceUser extends Equatable {
   final String name;
   final String photo;
   final Role role;
+  final List<String> companies;
 
   const FlutterFinanceUser({
     @required this.email,
     @required this.id,
     @required this.name,
     @required this.photo,
-    @required this.role
+    @required this.role,
+    @required this.companies
   }):assert(email != null), assert(id != null);
 
   @override
