@@ -1,6 +1,7 @@
 import 'package:draggable_floating_button/draggable_floating_button.dart';
 import 'package:finance_flutter/model/businessEntity/category.dart';
 import 'package:finance_flutter/model/businessEntity/transaction.dart';
+import 'package:finance_flutter/state_management/authentication_state/authentication_bloc.dart';
 import 'package:finance_flutter/state_management/transaction_state/transaction_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,6 +22,13 @@ class _ListTransactionState extends State<ListTransaction> {
     var appBar2 = AppBar(
       actions: [
         IconButton(icon: Icon(Icons.add), onPressed: _pushSaved),
+        IconButton(
+          key: const Key('homePage_logout_iconButton'),
+          icon: const Icon(Icons.exit_to_app),
+          onPressed: () => context
+              .read<AuthenticationBloc>()
+              .add(AuthenticationLogoutRequestedEvent()),
+        ),
       ],
     );
     return BlocBuilder<TransactionBloc, TransactionState>(
@@ -60,13 +68,15 @@ class _ListTransactionState extends State<ListTransaction> {
   }
 
   Widget _buildSuggestions(transactions) {
-    return ListView.builder(
-        itemCount: transactions.length,
-        padding: EdgeInsets.all(16.0),
-        itemBuilder: /*1*/ (context, i) {
-          //if (i.isOdd) return Divider();
-          return _buildRow(transactions[i]);
-        });
+    return Container(
+        margin: EdgeInsets.only(bottom: 35),
+        child: ListView.builder(
+            itemCount: transactions.length,
+            padding: EdgeInsets.all(16.0),
+            itemBuilder: /*1*/ (context, i) {
+              //if (i.isOdd) return Divider();
+              return _buildRow(transactions[i]);
+            }));
   }
 
   Widget _buildRow(Transaction transaction) {

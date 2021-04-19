@@ -15,3 +15,16 @@ extension RoleExtension on Role {
     }
   }
 }
+
+
+class StringToEnumConverter {
+  //GENERIC Function
+//  static T toEnum<T>(String value, List<T> list) => list.firstWhere((d) => d.toString().toLowerCase() == value);
+  static Role toEnum<T>(String value, List<Role> list){
+     print("Here is enum list ${list}");
+     list.firstWhere((Role d){
+       return d.name == value;
+     });
+     return list.firstWhere((Role d) => d.name == value);
+  }
+}

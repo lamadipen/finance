@@ -1,9 +1,11 @@
+import 'package:finance_flutter/repositories/user_repositories.dart';
 import 'package:finance_flutter/service/authentication_service.dart';
 import 'package:finance_flutter/state_management/authentication_state/authentication_bloc.dart';
 import 'package:finance_flutter/state_management/finance_bloc_observer.dart';
 import 'package:finance_flutter/view/home/splash_page.dart';
 import 'package:finance_flutter/view/home_page.dart';
 import 'package:finance_flutter/view/login/login_page.dart';
+import 'package:finance_flutter/view/signup/signup_form.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,16 +22,19 @@ void main() async {
       data: MediaQueryData(),
       child: FinanceApp(
           authenticationService: AuthenticationService(),
+          userRepository: UserRepositoryImpl(),
           firebaseInitialization: _initialization)));
 }
 
 class FinanceApp extends StatelessWidget {
   final AuthenticationService authenticationService;
+  final UserRepository userRepository ;
   final Future<FirebaseApp> firebaseInitialization;
 
   FinanceApp({
     Key key,
     @required this.authenticationService,
+    @required this.userRepository,
     @required this.firebaseInitialization,
   })  : assert(authenticationService != null),
         super(key: key);
@@ -48,7 +53,7 @@ class FinanceApp extends StatelessWidget {
           return RepositoryProvider.value(
             value: authenticationService,
             child: BlocProvider(
-              create: (_) => AuthenticationBloc(authenticationService),
+              create: (_) => AuthenticationBloc(authenticationService, userRepository),
               // child: mainPage,
               child: AppView(),
             ),
@@ -101,6 +106,12 @@ class _AppViewState extends State<AppView> {
                 _navigator.pushAndRemoveUntil<void>(
                   HomePage.route(),
                   (route) => false,
+                );
+                break;
+              case AuthenticationStatus.authenticatedSignUp:
+                _navigator.pushAndRemoveUntil<void>(
+                  SignUpForm.route(),
+                      (route) => false,
                 );
                 break;
               case AuthenticationStatus.unauthenticated:

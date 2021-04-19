@@ -13,7 +13,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     final user = context.select((AuthenticationBloc bloc) => bloc.state.user);
     return Scaffold(
         body: MultiBlocProvider(
@@ -30,17 +29,3 @@ class HomePage extends StatelessWidget {
         ));
   }
 }
-// Signout button needs to be implemented later
-// appBar: AppBar(
-// actions: <Widget>[
-// Text(user.email, style: textTheme.headline6),
-// Text(user.name ?? '', style: textTheme.headline5),
-// IconButton(
-// key: const Key('homePage_logout_iconButton'),
-// icon: const Icon(Icons.exit_to_app),
-// onPressed: () => context
-//     .read<AuthenticationBloc>()
-// .add(AuthenticationLogoutRequestedEvent()),
-// ),
-// ],
-// )

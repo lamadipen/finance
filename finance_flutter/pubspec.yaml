@@ -39,6 +39,7 @@ dependencies:
   charts_flutter: ^0.10.0
   firebase_core: "^1.0.1"
   firebase_auth: "^1.0.1"
+  cloud_firestore: "^1.0.1"
   flutter_facebook_auth: ^3.0.0+1
   google_sign_in: "^4.5.1"
   pedantic: ^1.9.0
@@ -92,3 +93,5 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 
   generate: true
+
+  #https://flutter.dev/docs/development/tools/devtools/cli

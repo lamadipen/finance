@@ -1,7 +1,7 @@
 part of 'authentication_bloc.dart';
 
 
-enum AuthenticationStatus { authenticated, unauthenticated, unknown }
+enum AuthenticationStatus { authenticated, unauthenticated, unknown , authenticatedSignUp}
 
 class AuthenticationState extends Equatable{
   final AuthenticationStatus status;
@@ -22,4 +22,7 @@ class AuthenticationState extends Equatable{
 
   const AuthenticationState.unauthenticated()
       : this._(status: AuthenticationStatus.unauthenticated);
+
+  const AuthenticationState.authenticatedSignUp(FlutterFinanceUser user)
+      : this._(status: AuthenticationStatus.authenticatedSignUp, user: user);
 }
